@@ -44,5 +44,40 @@ WHERE cid IN(
 				OR
         	  pid = 'p07')
     );
+-- Question 5
+SELECT pid
+FROM   PRODUCTS
+WHERE  pid NOT IN
+	(SELECT pid
+	 FROM   ORDERS
+     WHERE  aid  IN
+		(SELECT aid
+         FROM   AGENTS
+         WHERE  aid = 'a08')
+     )
+ORDER BY pid DESC;
 
+-- Question 6
+SELECT name, discount, city
+FROM   CUSTOMERS
+WHERE  cid IN
+	(SELECT cid
+     FROM   ORDERS
+     WHERE  aid IN
+     	(SELECT aid
+         FROM   AGENTS
+         WHERE  city = 'New York'
+         		 		  OR
+         	    city = 'Dallas')
+     );
+-- Question 7
+SELECT *
+FROM  CUSTOMERS AS c1
+WHERE discount IN
+	(SELECT discount
+     FROM   CUSTOMERS
+     WHERE  city = 'Dallas'
+     			OR
+     		city = 'London'
+     );
 
