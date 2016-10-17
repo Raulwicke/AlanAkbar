@@ -41,8 +41,12 @@ FROM Orders o, Agents a, Customers c, Products p
 WHERE c.city = a.city;
 
 -- Question 7
-
-
-
-
+SELECT c.city, c.name, SUM(quantity) AS "Total"
+FROM PRODUCTS p, CUSTOMERS c, ORDERS o
+WHERE c.city in (SELECT p.city
+				 FROM PRODUCTS p
+				 GROUP BY p.city
+				 ORDER BY COUNT(quantity) ASC 
+                 LIMIT 1)
+GROUP BY c.city, c.name
 
